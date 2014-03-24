@@ -12,7 +12,14 @@
 *.so.*
 *.dylib
 
+# Vim temp files
+*~
+*.swp
+*.swo
+
 # Executables
 *.exe
 *.out
 *.app
+asfdscat/asfds
+asfdscat/fdscat
