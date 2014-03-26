@@ -20,7 +20,7 @@ void read_and_write_all(int from, int to)
 
 int main(int argc, char * argv[])
 {
-    for (int i = 0; i < argc; ++i)
+    for (int i = 1; i < argc; ++i)
         read_and_write_all(atoi(argv[i]), STDOUT_FILENO);
     return EXIT_SUCCESS;
 }
