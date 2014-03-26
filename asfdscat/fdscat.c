@@ -16,6 +16,7 @@ void read_and_write_all(int from, int to)
         if (len == BUF_SIZE || eof)
             write_all(to, buf, len);
     }
+    free(buf);
 }
 
 int main(int argc, char * argv[])
