@@ -1,9 +1,6 @@
 #include "wrappers.h"
 
-#include <stdbool.h>
-
 const int ERROR = -1;
-const int BUF_SIZE = 1024;
 
 // Wrapper functions
 void error_exit(char * error_msg)
@@ -57,20 +54,4 @@ void write_all(int fd, const void * buf, ssize_t count)
     ssize_t written = 0;
     while (written < count)
         written += write_(fd, buf + written, count - written);
-}
-
-void read_and_write(int from, int to)
-{
-    char buf[BUF_SIZE];
-    ssize_t len = 0;
-    bool eof = false;
-    while (!eof)
-    {
-        ssize_t r = read_(from, buf + len, BUF_SIZE - len);
-        if (r == 0)
-            eof = true;
-        len += r;
-        if (len == BUF_SIZE || eof)
-            write_all(to, buf, len);
-    }
 }

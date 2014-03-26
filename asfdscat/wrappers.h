@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdbool.h>
 
 void error_exit(char * error_msg);
 
@@ -16,5 +17,3 @@ int open_(const char * pathname, int flags);
 int close_(int fd);
 
 void write_all(int fd, const void * buf, ssize_t count);
-
-void read_and_write(int from, int to);
