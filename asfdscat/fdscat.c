@@ -4,7 +4,7 @@ const int BUF_SIZE = 1024;
 
 void read_and_write_all(int from, int to)
 {
-    char buf[BUF_SIZE];
+    char *buf = malloc_(BUF_SIZE);
     ssize_t len = 0;
     bool eof = false;
     while (!eof)
