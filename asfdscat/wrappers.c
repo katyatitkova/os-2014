@@ -15,7 +15,7 @@ void error_exit(char * error_msg)
 void * malloc_(size_t size)
 {
     void * res = malloc(size);
-    if (res == NULL) // we supose size != 0
+    if (res == NULL) // we suppose size != 0
         error_exit("malloc");
     return res;
 }
