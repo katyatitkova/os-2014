@@ -1,5 +1,7 @@
 #include "wrappers.h"
 
+#include <stdbool.h>
+
 const int ERROR = -1;
 const int BUF_SIZE = 1024;
 
@@ -61,14 +63,14 @@ void read_and_write(int from, int to)
 {
     char buf[BUF_SIZE];
     ssize_t len = 0;
-    int eof = 0;
-    while (eof == 0)
+    bool eof = false;
+    while (!eof)
     {
         ssize_t r = read_(from, buf + len, BUF_SIZE - len);
         if (r == 0)
-            eof = 1;
+            eof = true;
         len += r;
-        if (len == BUF_SIZE || eof != 0)
+        if (len == BUF_SIZE || eof)
             write_all(to, buf, len);
     }
 }
