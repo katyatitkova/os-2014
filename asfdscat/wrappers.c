@@ -49,6 +49,30 @@ int close_(int fd)
     return res;
 }
 
+pid_t fork_(void)
+{
+    pid_t res = fork();
+    if (res == ERROR)
+        error_exit("fork");
+    return res;
+}
+
+pid_t waitpid_(pid_t pid, int * status, int options)
+{
+    pid_t res = waitpid(pid, status, options);
+    if (res == ERROR)
+        error_exit("waitpid");
+    return res;
+}
+
+int execvp_(const char * file, char * const argv[])
+{
+    int res = execvp(file, argv);
+    if (res == ERROR)
+        error_exit("execvp");
+    return res;
+}
+
 void write_all(int fd, const void * buf, ssize_t count)
 {
     ssize_t written = 0;

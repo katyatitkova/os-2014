@@ -14,7 +14,10 @@ void read_and_write_all(int from, int to)
             eof = true;
         len += r;
         if (len == BUF_SIZE || eof)
+        {
             write_all(to, buf, len);
+            len = 0;
+        }
     }
     free(buf);
 }
