@@ -30,5 +30,7 @@ int main(int argc, char * argv[])
         execvp_(argv_exec[0], argv_exec);
         _exit(EXIT_SUCCESS);
     }
+    for (int i = 1; i < argc - 1; ++i)
+        free(argv_exec[i]);
     return EXIT_SUCCESS;
 }
