@@ -5,11 +5,12 @@ const int MAX_INT_LENGTH = 11; // 10 and \0
 
 int main(int argc, char * argv[])
 {
-    if (argc <= 1)
+    if (argc <= 2)
         error_exit("not enough arguments");
     char * argv_exec[argc];
-    argv_exec[0] = argv[1];
-    for (int i = 2; i < argc; ++i)
+    argv_exec[1] = argv[2]; // delimeter
+    argv_exec[0] = argv[1]; // program name
+    for (int i = 3; i < argc; ++i)
     {
         argv_exec[i - 1] = malloc_(MAX_INT_LENGTH);
         memset(argv_exec[i - 1], 0, MAX_INT_LENGTH);
@@ -30,7 +31,7 @@ int main(int argc, char * argv[])
         execvp_(argv_exec[0], argv_exec);
         _exit(EXIT_SUCCESS);
     }
-    for (int i = 1; i < argc - 1; ++i)
+    for (int i = 2; i < argc - 1; ++i)
         free(argv_exec[i]);
     return EXIT_SUCCESS;
 }

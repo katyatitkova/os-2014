@@ -1,10 +1,12 @@
 #include "wrappers.h"
 
+#include <string.h>
+
 const int BUF_SIZE = 1024;
 
 void read_and_write_all(int from, int to)
 {
-    char *buf = malloc_(BUF_SIZE);
+    char * buf = malloc_(BUF_SIZE);
     ssize_t len = 0;
     bool eof = false;
     while (!eof)
@@ -24,7 +26,11 @@ void read_and_write_all(int from, int to)
 
 int main(int argc, char * argv[])
 {
-    for (int i = 1; i < argc; ++i)
+    for (int i = 2; i < argc; ++i)
+    {
         read_and_write_all(atoi(argv[i]), STDOUT_FILENO);
+        if (i != argc - 1)
+            write_all(STDOUT_FILENO, argv[1], strlen(argv[1]));
+    }
     return EXIT_SUCCESS;
 }
