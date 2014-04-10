@@ -12,6 +12,7 @@
 void error_exit(char * error_msg);
 
 void * malloc_(size_t size);
+void * realloc_(void * ptr, size_t size);
 ssize_t read_(int fd, void * buf, size_t count);
 ssize_t write_(int fd, const void * buf, size_t count);
 int open_(const char * pathname, int flags);

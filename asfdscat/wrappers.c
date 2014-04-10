@@ -17,6 +17,14 @@ void * malloc_(size_t size)
     return res;
 }
 
+void * realloc_(void * ptr, size_t size)
+{
+    void * res = realloc(ptr, size);
+    if (res == NULL)
+        error_exit("realloc");
+    return res;
+}
+
 ssize_t read_(int fd, void * buf, size_t count)
 {
     ssize_t res = read(fd, buf, count);

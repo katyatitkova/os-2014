@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-const int BUF_SIZE = 1024;
+const int BUF_SIZE = 4;//1024;
 
 void read_and_write_all(int from, int to)
 {
