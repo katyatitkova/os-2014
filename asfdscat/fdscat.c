@@ -19,6 +19,13 @@ void buffer_init(struct buffer_t * buf)
     buf->length = 0;
 }
 
+void buffer_init_size(struct buffer_t * buf, size_t size)
+{
+    buf->buf = malloc_(size);
+    buf->size = size;
+    buf->length = 0;
+}
+
 void buffer_realloc(struct buffer_t * buf)
 {
     buf->size += BLOCK_SIZE;
@@ -40,6 +47,10 @@ void read_and_write_all(int from, int to)
     struct buffer_t buf;
     buffer_init(&buf);
     bool eof = false;
+    bool first = false;
+    bool second = false;
+    struct buffer_t first_str;
+    struct buffer_t second_str;
     while (!eof)
     {
         ssize_t r = read_(from, buf.buf + buf.length, buf.size - buf.length);
@@ -52,21 +63,36 @@ void read_and_write_all(int from, int to)
         {
             if (buf.buf[i] == DELIMETER)
             {
-                if (i != 0)
-                    buffer_reverse(&buf, i - 1);
-                /*perror("after reverse");
-                perror(buf.buf);
-                perror("----");*/
-                write_all(to, buf.buf, i + 1);
+                if (first)
+                {
+                    buffer_init_size(&second_str, i + 1);
+                    memcpy(second_str.buf, buf.buf, i + 1);
+                    second_str.length = i + 1;
+                    if (i != 0)
+                        buffer_reverse(&second_str, i - 1);
+                    second = true;
+                }
+                else
+                {
+                    buffer_init_size(&first_str, i + 1);
+                    memcpy(first_str.buf, buf.buf, i + 1);
+                    first_str.length = i + 1;
+                    if (i != 0)
+                        buffer_reverse(&first_str, i - 1);
+                    first = true;
+                }
+                if (second)
+                {
+                    write_all(to, second_str.buf, second_str.length);
+                    write_all(to, first_str.buf, first_str.length);
+                    first = false;
+                    second = false;
+                    free(first_str.buf);
+                    free(second_str.buf);
+                }
                 size_t count = buf.length - i - 1;
                 memmove(buf.buf, buf.buf + i + 1, count);
-                /*perror("after memcpy");
-                perror(buf.buf);
-                perror("----");*/
                 memset(buf.buf + count, 0, buf.size - count);
-                /*perror("after memset");
-                perror(buf.buf);
-                perror("----");*/
                 buf.length -= (i + 1);
                 i = 0;
             }
@@ -81,6 +107,11 @@ void read_and_write_all(int from, int to)
         {
             buffer_reverse(&buf, buf.length);
             write_all(to, buf.buf, buf.length);
+            if (first)
+            {
+                write_all(to, first_str.buf, first_str.length);
+                free(first_str.buf);
+            }
         }
     }
     free(buf.buf);

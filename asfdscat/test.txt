@@ -1,11 +1,5 @@
+first line
+second line
 
-
-abcd
-abc
-abcdefg
-
-abcdefg
-abcdefgh
-abcdefghijkl
-
-abcdefghijklmnopqrstuvwxyz
+fourth line
+fifth line
