@@ -42,12 +42,17 @@ void buffer_reverse(struct buffer_t * buf, size_t until)
     }
 }
 
+void buffer_copy(struct buffer_t * to, struct buffer_t * from, size_t i)
+{
+	buffer_init_size(to, i);
+    memcpy(to->buf, from->buf, i);
+    to->length = i;
+}
+
 void buffer_copy_and_reverse(struct buffer_t * to,
         struct buffer_t * from, size_t i)
 {
-    buffer_init_size(to, i + 1);
-    memcpy(to->buf, from->buf, i + 1);
-    to->length = i + 1;
+    buffer_copy(to, from, i + 1);
     if (i != 0)
         buffer_reverse(to, i - 1);
 }
