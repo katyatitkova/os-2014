@@ -42,6 +42,16 @@ void buffer_reverse(struct buffer_t * buf, size_t until)
     }
 }
 
+void buffer_copy_and_reverse(struct buffer_t * to,
+        struct buffer_t * from, size_t i)
+{
+    buffer_init_size(to, i + 1);
+    memcpy(to->buf, from->buf, i + 1);
+    to->length = i + 1;
+    if (i != 0)
+        buffer_reverse(to, i - 1);
+}
+
 void read_and_write_all(int from, int to)
 {
     struct buffer_t buf;
@@ -65,20 +75,12 @@ void read_and_write_all(int from, int to)
             {
                 if (first)
                 {
-                    buffer_init_size(&second_str, i + 1);
-                    memcpy(second_str.buf, buf.buf, i + 1);
-                    second_str.length = i + 1;
-                    if (i != 0)
-                        buffer_reverse(&second_str, i - 1);
+                    buffer_copy_and_reverse(&second_str, &buf, i);
                     second = true;
                 }
                 else
                 {
-                    buffer_init_size(&first_str, i + 1);
-                    memcpy(first_str.buf, buf.buf, i + 1);
-                    first_str.length = i + 1;
-                    if (i != 0)
-                        buffer_reverse(&first_str, i - 1);
+                    buffer_copy_and_reverse(&first_str, &buf, i);
                     first = true;
                 }
                 if (second)
