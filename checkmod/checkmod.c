@@ -22,7 +22,6 @@ int main(int argc, char * argv[])
     if (argc < 2 || argc % 2 != 0)
         error_exit("number of arguments");
     char * uid = argv[1];
-    // check if uid exists?
     for (int i = 2; i < argc; i += 2)
     {
         char * file = argv[i];
