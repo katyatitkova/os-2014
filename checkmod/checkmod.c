@@ -18,6 +18,7 @@ bool verify_mode(char * mode)
 
 int main(int argc, char * argv[])
 {
+    //setuid
     if (argc < 2 || argc % 2 != 0)
         error_exit("number of arguments");
     char * uid = argv[1];
@@ -29,6 +30,8 @@ int main(int argc, char * argv[])
         char * mode = argv[i + 1];
         if (!verify_mode(mode))
             error_exit("mode");
+        // try open for read
+        // try open for write
     }
     return EXIT_SUCCESS;
 }
