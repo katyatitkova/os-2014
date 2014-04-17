@@ -13,13 +13,13 @@ void error_exit(char * error_msg)
     exit(EXIT_FAILURE);
 }
 
-int setreuid_(uid_t ruid, uid_t euid)
+/*int setreuid_(uid_t ruid, uid_t euid)
 {
     int res = setreuid(ruid, euid);
     if (res == ERROR)
         error_exit("setreuid");
     return res;
-}
+}*/
 
 int setuid_(uid_t uid)
 {
